@@ -48,9 +48,16 @@ catkin_package(
 
 install(DIRECTORY cmake
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+# show include dir in qtcreator
+file(GLOB_RECURSE CURRENT_HEADERS  include/msf_core/*.h include/msf_core/*.hpp include/msf_core/implementation/*.h)
+source_group("Include" FILES ${CURRENT_HEADERS}) 
 
-add_library(${PROJECT_NAME} src/lib/msf_tools.cc src/lib/falsecolor.cc 
-                     src/lib/gps_conversion.cc)
+
+add_library(${PROJECT_NAME} 
+            src/lib/msf_tools.cc 
+            src/lib/falsecolor.cc 
+            src/lib/gps_conversion.cc
+            ${CURRENT_HEADERS})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg) # ${MSF_DOCUMENTATION}) 
 

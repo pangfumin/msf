@@ -11,4 +11,5 @@
           
           <rosparam file="$(find msf_updates)/pose_sensor_fix.yaml"/>
     </node>
-</launch>
+/launch>
+

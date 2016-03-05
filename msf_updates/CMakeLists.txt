@@ -13,6 +13,12 @@ find_package(catkin REQUIRED COMPONENTS roscpp msf_core geometry_msgs sensor_fus
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
+# show include dir in qtcreator
+file(GLOB_RECURSE CURRENT_HEADERS  include/*.h include/*.hpp )
+source_group("Include" FILES ${CURRENT_HEADERS}) 
+
+
+
 generate_dynamic_reconfigure_options(
     cfg/PosePressureSensor.cfg
     cfg/PositionPoseSensor.cfg
@@ -35,7 +41,18 @@ target_link_libraries(pose_distorter ${catkin_LIBRARIES})
 if(EXISTS "${PROJECT_SOURCE_DIR}/COMPILE_ONLY_POSEFILTER")
 add_subdirectory(src/pose_msf)
 else()
-add_subdirectory(src/pose_msf)
+#add_subdirectory(src/pose_msf)
+
+
+# for pose_sensor
+add_executable(pose_sensor 
+src/pose_msf/main.cpp 
+src/pose_msf/msf_statedef.hpp
+src/pose_msf/pose_sensormanager.h 
+${CURRENT_HEADERS})
+target_link_libraries(pose_sensor pose_distorter ${catkin_LIBRARIES})
+add_dependencies(pose_sensor ${${PROJECT_NAME}_EXPORTED_TARGETS})
+
 add_subdirectory(src/pose_pressure_msf)
 add_subdirectory(src/position_msf)
 add_subdirectory(src/position_pose_msf)
