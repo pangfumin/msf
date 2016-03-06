@@ -62,6 +62,7 @@ class PoseSensorHandler : public msf_core::SensorHandler<
       const geometry_msgs::PoseWithCovarianceStampedConstPtr & msg);
   void MeasurementCallback(const geometry_msgs::PoseStampedConstPtr & msg);
   void MeasurementCallback(const geometry_msgs::TransformStampedConstPtr & msg);
+  //void MeasurementCallback(const
 
  public:
   typedef MEASUREMENT_TYPE measurement_t;
